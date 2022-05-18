@@ -19,7 +19,22 @@ class Utilities{
         button.configuration?.baseBackgroundColor = .systemTeal
         button.configuration?.buttonSize = .large
         button.configuration?.baseForegroundColor = .white
+        button.configuration?.imagePadding = 8
         
     }
     
+    static func styleLabel(label : UILabel){
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .systemPink
+        label.numberOfLines = 0// multiline
+        
+    }
+    
+    static func isPasswordValid(_ password : String) -> Bool {
+        
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        return passwordTest.evaluate(with: password)
+    }
 }
