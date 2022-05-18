@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		967687312835383900B85930 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967687302835383900B85930 /* Utilities.swift */; };
 		967B0A5C28346B8300DE199E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967B0A5B28346B8300DE199E /* AppDelegate.swift */; };
 		967B0A6028346B8300DE199E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967B0A5F28346B8300DE199E /* ViewController.swift */; };
 		967B0A6528346B8700DE199E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967B0A6428346B8700DE199E /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		967687302835383900B85930 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		967B0A5828346B8300DE199E /* Login-firebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Login-firebase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		967B0A5B28346B8300DE199E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		967B0A5F28346B8300DE199E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				967B0A6F28346F7000DE199E /* SignUpViewController.swift */,
 				967B0A732834702E00DE199E /* HomeViewController.swift */,
 				967B0A7128346FEE00DE199E /* LoginViewController.swift */,
+				967687302835383900B85930 /* Utilities.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967687312835383900B85930 /* Utilities.swift in Sources */,
 				967B0A742834702E00DE199E /* HomeViewController.swift in Sources */,
 				967B0A7228346FEE00DE199E /* LoginViewController.swift in Sources */,
 				967B0A7028346F7100DE199E /* SignUpViewController.swift in Sources */,

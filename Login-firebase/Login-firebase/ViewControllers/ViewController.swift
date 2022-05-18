@@ -30,22 +30,10 @@ extension ViewController{
         view.addSubview(signUpButton)
         view.addSubview(loginButton)
         
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.setTitle("Sign Up", for: .normal)
-        signUpButton.configuration?.titleAlignment = .center
-        signUpButton.configuration?.cornerStyle = .capsule
-        signUpButton.configuration?.baseBackgroundColor = .systemTeal
-        signUpButton.configuration?.buttonSize = .large
-        signUpButton.configuration?.baseForegroundColor = .white
+        Utilities.styleButton(signUpButton, with: "Sign Up")
         signUpButton.addTarget(self, action: #selector(signUpTapped), for: .primaryActionTriggered)
         
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Log in", for: .normal)
-        loginButton.configuration?.titleAlignment = .center
-        loginButton.configuration?.cornerStyle = .capsule
-        loginButton.configuration?.baseBackgroundColor = .systemTeal
-        loginButton.configuration?.buttonSize = .large
-        loginButton.configuration?.baseForegroundColor = .white
+        Utilities.styleButton(loginButton, with: "Log in")
         loginButton.addTarget(self, action: #selector(loginTapped), for: .primaryActionTriggered)
     }
     
