@@ -51,15 +51,15 @@ extension ViewController{
     
     @objc private func signUpTapped(){
         print("signUp Tapped")
-        //let signUpVC = SignUpViewController()
-        //navigationController?.pushViewController(signUpVC, animated: true)
+        let signUpVC = SignUpViewController()
+        navigationController?.pushViewController(signUpVC, animated: true)
         
     }
     
     @objc private func loginTapped(){
         print("login Tapped")
-        //let loginVC = LoginViewController()
-        //navigationController?.pushViewController(loginVC, animated: true)
+        let loginVC = LoginViewController()
+        navigationController?.pushViewController(loginVC, animated: true)
         
     }
 }
