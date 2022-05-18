@@ -16,16 +16,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         style()
         layout()
-        setup()
     }
 
 }
 
 extension ViewController{
     // round filled buttons
-    func setup(){
-        
-    }
+
     func style(){
         view.addSubview(signUpButton)
         view.addSubview(loginButton)
@@ -41,6 +38,7 @@ extension ViewController{
         
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         signUpButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -200).isActive = true
+        
         loginButton.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor).isActive = true
         loginButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20).isActive = true
         loginButton.widthAnchor.constraint(equalTo: signUpButton.widthAnchor).isActive = true

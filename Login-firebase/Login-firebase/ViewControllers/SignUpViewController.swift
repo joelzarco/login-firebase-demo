@@ -51,13 +51,13 @@ extension SignUpViewController{
         passwordTextField.isSecureTextEntry = true
         
         dividerView.translatesAutoresizingMaskIntoConstraints = false
-        dividerView.backgroundColor = .secondarySystemFill
+        dividerView.backgroundColor = .systemTeal
         
         divider2.translatesAutoresizingMaskIntoConstraints = false
-        divider2.backgroundColor = .secondarySystemFill
+        divider2.backgroundColor = .systemTeal
         
         divider3.translatesAutoresizingMaskIntoConstraints = false
-        divider3.backgroundColor = .secondarySystemFill
+        divider3.backgroundColor = .systemTeal
         
         Utilities.styleButton(signUpButton, with: "Sign Up")
         signUpButton.addTarget(self, action: #selector(signUpTapped), for: .primaryActionTriggered)
