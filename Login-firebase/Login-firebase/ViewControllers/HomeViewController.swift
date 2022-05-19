@@ -7,8 +7,10 @@
 
 import UIKit
 
-class HomeViewController : UIViewController{
+class HomeViewController: UIViewController {
     
+    let homeLabel = UILabel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
@@ -17,7 +19,19 @@ class HomeViewController : UIViewController{
 }
 
 extension HomeViewController{
-    func style(){}
+    func style(){
+        view.addSubview(homeLabel)
+        view.backgroundColor = .systemPink
+        homeLabel.translatesAutoresizingMaskIntoConstraints = false
+        homeLabel.text = "Welcome"
+        homeLabel.textAlignment = .center
+        homeLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+    }
     
-    func layout(){}
+    func layout(){
+        
+        homeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        homeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+    }
 }
