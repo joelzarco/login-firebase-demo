@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 class SignUpViewController: UIViewController {
     
@@ -63,8 +65,9 @@ extension SignUpViewController{
         signUpButton.addTarget(self, action: #selector(signUpTapped), for: .primaryActionTriggered)
         
         Utilities.styleLabel(label: errorMessageLabel)
-        errorMessageLabel.text = "Some cool magic :("
-        errorMessageLabel.isHidden = true
+        errorMessageLabel.text = "Your password must be at least 8 chars and contain a especial character and a number"
+        errorMessageLabel.textColor = .systemGray
+        errorMessageLabel.isHidden = false
 
         // from core animation, CAlayer
         view.layer.cornerRadius = 5
@@ -94,12 +97,12 @@ extension SignUpViewController{
         divider2.heightAnchor.constraint(equalToConstant: 1).isActive = true
         divider3.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        signUpButton.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 2).isActive = true
+        signUpButton.topAnchor.constraint(equalToSystemSpacingBelow: stackView.bottomAnchor, multiplier: 4).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         errorMessageLabel.topAnchor.constraint(equalToSystemSpacingBelow: signUpButton.bottomAnchor, multiplier: 2).isActive = true
-        errorMessageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        errorMessageLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        errorMessageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        errorMessageLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         
     }
 }
@@ -131,13 +134,47 @@ extension SignUpViewController{
     
     @objc func signUpTapped(sender : UIButton){
         print("signUp  Tapped!")
-        errorMessageLabel.isHidden = false
+        errorMessageLabel.isHidden = true
+        errorMessageLabel.textColor = .systemGray
         // validate fields
+        let error = validateFields()
+        if error != nil{
+            // If there's an error on field's validation, display it and change label color
+            showError(with: error!)
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.textColor = .systemPink
+        }else{
+            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            // create user
+            Auth.auth().createUser(withEmail: email, password: password) { result, err in
+                if err != nil{
+                    // there was an error while creating the doc
+//                    print(err?.localizedDescription)
+                    print("error while reaching auth")
+                    self.showError(with: "Error with Auth.auth()")
+                }else{
+                    // user was created succesfully, now it's time for first and lastname
+                    print("user created succesfully")
+                    // transition to Home screen
+                    self.setHome()
+                }
+            }
+
+        }
+        
+        // create user
     }
     
     private func showError(with message : String){
         errorMessageLabel.isHidden = false
         errorMessageLabel.text = message
+    }
+    
+    private func setHome(){
+        // transition to home user
+        let homeVC = HomeViewController()
+        navigationController?.pushViewController(homeVC, animated: true)
     }
 }
 
