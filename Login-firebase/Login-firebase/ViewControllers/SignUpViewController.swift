@@ -21,14 +21,12 @@ class SignUpViewController: UIViewController {
     let divider3 = UIView()
     let signUpButton = UIButton(configuration: .filled())
     let errorMessageLabel = UILabel()
-
-
+    var defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
         layout()
     }
-
 }
 
 extension SignUpViewController{
@@ -146,7 +144,7 @@ extension SignUpViewController{
         }else{
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            // create user
+            // Create user with firebase Auth
             Auth.auth().createUser(withEmail: email, password: password) { result, err in
                 if err != nil{
                     // there was an error while creating the doc
@@ -154,16 +152,15 @@ extension SignUpViewController{
                     print("error while reaching auth")
                     self.showError(with: "Error with Auth.auth()")
                 }else{
-                    // user was created succesfully, now it's time for first and lastname
+                    // user was created succesfully, now it's time for first and lastname in NS defaults
                     print("user created succesfully")
+                    self.defaults.set(self.firstNameTextField.text, forKey: "first")
+                    self.defaults.set(self.lastNameTextField.text, forKey: "last")
                     // transition to Home screen
                     self.setHome()
                 }
             }
-
         }
-        
-        // create user
     }
     
     private func showError(with message : String){
@@ -174,6 +171,7 @@ extension SignUpViewController{
     private func setHome(){
         // transition to home user
         let homeVC = HomeViewController()
+        homeVC.defaults = defaults
         navigationController?.pushViewController(homeVC, animated: true)
     }
 }
