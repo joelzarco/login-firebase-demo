@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -35,13 +37,10 @@ extension LoginViewController{
         
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "email"
-        emailTextField.delegate = self
-        
-        
+
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "password"
         passwordTextField.isSecureTextEntry = true
-        passwordTextField.delegate = self
         
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .systemTeal
@@ -53,7 +52,7 @@ extension LoginViewController{
         signInButton.addTarget(self, action: #selector(signInTapped), for: .primaryActionTriggered)
         
         Utilities.styleLabel(label: errorMessageLabel)
-        errorMessageLabel.text = "Some dark magic :("
+        errorMessageLabel.text = ""
         errorMessageLabel.isHidden = true
         
     }
@@ -88,23 +87,65 @@ extension LoginViewController{
     
     @objc func signInTapped(sender : UIButton){
         print("signIn Tapped!")
-        errorMessageLabel.isHidden = false
-    }
+        // Check for empty fields
+        let error = validateFields()
+        if error != nil {
+            // there is an error in some field
+            showError(with: error!)
+            errorMessageLabel.isHidden = false
+            errorMessageLabel.textColor = .systemPink
+            showError(with: "Please fill in all fields")
+        } else{
+            // Create cleaned versions of the text field
+            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            // Signing in the user
+            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+                if error != nil {
+                    // Couldn't sign in
+                    self.errorMessageLabel.text = error!.localizedDescription
+                    self.errorMessageLabel.isHidden = false
+                    self.showError(with: error!.localizedDescription)
+                }
+                else {
+                    //
+                    print("SigIn successfully")
+                    // Transition to homeView
+                    self.setHome()
+                }
+            }
+        }// endElse Auth
+    } // tapped
+    
 }
 
-extension LoginViewController : UITextFieldDelegate{
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        emailTextField.endEditing(true)
-        passwordTextField.endEditing(true)
-        return true
+extension LoginViewController{
+    // if everything is correct return nil, otherwise return error message
+    private func validateFields() -> String?{
+        // check if texts fields are filled
+        if (emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""){
+            return "Please fill in all fields"
+        }
+        // check if password is secure against regex
+        let cleanPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if (Utilities.isPasswordValid(cleanPassword)) == false{
+            //password isn't secure enoguh
+            return "Please make sure your password is at least 8 chars, contains a especial char and a number"
+        }
+        return nil
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true
+    private func showError(with message : String){
+        errorMessageLabel.isHidden = false
+        errorMessageLabel.text = message
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
+    private func setHome(){
+        // transition to home user
+        let homeVC = HomeViewController()
+//        homeVC.defaults = defaults
+        navigationController?.pushViewController(homeVC, animated: true)
     }
+    
 }
