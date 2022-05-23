@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         style()
         layout()
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
 }
 
